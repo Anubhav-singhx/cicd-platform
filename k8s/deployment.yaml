@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: anubhavsingh03/cicd-platform:cf7819033e272077be9845c663615f7af42d2b20
+        image: anubhavsingh03/cicd-platform:1e697871cdb4948d4a70f7e96e93957587cd7fbc
         ports:
         - containerPort: 3000
         env:
