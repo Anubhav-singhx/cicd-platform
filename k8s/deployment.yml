@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cicd-platform
+  namespace: cicd-demo
+  labels:
+    app: cicd-platform
+spec:
+  replicas: 3 
+  selector:
+    matchLabels:
+      app: cicd-platform
+  template:
+    metadata:
+      labels:
+        app: cicd-platform
+    spec:
+      containers:
+      - name: app
+        image: anubhavsingh03/cicd-platform:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5

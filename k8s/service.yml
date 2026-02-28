@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cicd-platform-service
+  namespace: cicd-demo
+spec:
+  type: LoadBalancer
+  selector:
+    app: cicd-platform
+  ports:
+    - protocol: TCP
+      port: 80  # External port
+      targetPort: 3000  # Internal port (your app)
