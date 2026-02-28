@@ -8,7 +8,7 @@ spec:
   
   # Where is the code?
   source:
-    repoURL: https://github.com/YOUR-USERNAME/cicd-platform.git  # REPLACE THIS
+    repoURL: https://github.com/Anubhav-singhx/cicd-platform.git
     targetRevision: main
     path: k8s
   

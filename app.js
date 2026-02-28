@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
       </head>
       <body>
         <h1>🚀 Production-Grade CI/CD Platform</h1>
-        <p>Version 1.0 - Deployed with GitOps!</p>
+        <p>Version 2.0 - Auto-Deployed with ArgoCD!</p>
         <p>Hostname: ${require('os').hostname()}</p>
       </body>
     </html>
