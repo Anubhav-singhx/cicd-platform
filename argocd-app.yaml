@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cicd-platform
+  namespace: argocd
+spec:
+  project: default
+  
+  # Where is the code?
+  source:
+    repoURL: https://github.com/YOUR-USERNAME/cicd-platform.git  # REPLACE THIS
+    targetRevision: main
+    path: k8s
+  
+  # Where to deploy?
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cicd-demo
+  
+  # Auto-sync settings
+  syncPolicy:
+    automated:
+      prune: true  # Delete resources that are no longer in Git
+      selfHeal: true  # Auto-fix if someone manually changes things
+      allowEmpty: false
+    syncOptions:
+    - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
