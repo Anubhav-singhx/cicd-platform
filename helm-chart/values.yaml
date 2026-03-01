@@ -3,7 +3,7 @@ replicaCount: 3
 
 image:
   repository: anubhavsingh03/cicd-platform  
-  tag: "16bf07d463fabf5fac00f04c77a9d7cab53d893f"
+  tag: "862d1c4322773544956d64cba5581dac4930798f"
   pullPolicy: Always
 
 # Service settings
