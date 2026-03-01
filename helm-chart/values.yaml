@@ -1,0 +1,42 @@
+
+replicaCount: 3
+
+image:
+  repository: anubhavsingh03/cicd-platform  
+  tag: latest
+  pullPolicy: Always
+
+# Service settings
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 3000
+
+# Resource limits
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# Auto-scaling
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+
+# Health checks
+healthCheck:
+  enabled: true
+  path: /health
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+# Environment-specific overrides
+environment: production
+
+# Namespace
+namespace: cicd-demo

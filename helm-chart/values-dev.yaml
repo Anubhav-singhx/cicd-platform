@@ -1,0 +1,14 @@
+replicaCount: 1
+environment: development
+namespace: cicd-dev
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+autoscaling:
+  enabled: false

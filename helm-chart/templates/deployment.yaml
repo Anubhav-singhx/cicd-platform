@@ -1,0 +1,50 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "cicd-platform.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ include "cicd-platform.name" . }}
+    chart: {{ include "cicd-platform.chart" . }}
+    environment: {{ .Values.environment }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "cicd-platform.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "cicd-platform.name" . }}
+        version: {{ .Values.image.tag | quote }}
+    spec:
+      containers:
+      - name: app
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: http
+          containerPort: {{ .Values.service.targetPort }}
+          protocol: TCP
+        env:
+        - name: NODE_ENV
+          value: {{ .Values.environment }}
+        - name: PORT
+          value: {{ .Values.service.targetPort | quote }}
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+        {{- if .Values.healthCheck.enabled }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.healthCheck.path }}
+            port: {{ .Values.service.targetPort }}
+          initialDelaySeconds: {{ .Values.healthCheck.initialDelaySeconds }}
+          periodSeconds: {{ .Values.healthCheck.periodSeconds }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.healthCheck.path }}
+            port: {{ .Values.service.targetPort }}
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        {{- end }}

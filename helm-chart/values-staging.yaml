@@ -1,0 +1,16 @@
+replicaCount: 2
+environment: staging
+namespace: cicd-staging
+
+resources:
+  limits:
+    cpu: 150m
+    memory: 192Mi
+  requests:
+    cpu: 50m
+    memory: 96Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5

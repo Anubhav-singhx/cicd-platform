@@ -1,0 +1,13 @@
+apiVersion: v2
+name: cicd-platform
+description: Production-grade CI/CD platform with monitoring
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - cicd
+  - gitops
+  - nodejs
+maintainers:
+  - name: Anubhav
+    email: iamasingh96@gmail.com

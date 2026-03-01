@@ -8,20 +8,24 @@ spec:
   
   # Where is the code?
   source:
-    repoURL: https://github.com/Anubhav-singhx/cicd-platform.git
+    repoURL: https://github.com/Anubhav-singhx/cicd-platform.git  # REPLACE YOUR-USERNAME
     targetRevision: main
-    path: k8s
+    path: helm-chart  # Changed from k8s to helm-chart
+    helm:
+      valueFiles:
+        - values.yaml  # Base values
+        - values-prod.yaml  # Production overrides
   
   # Where to deploy?
   destination:
     server: https://kubernetes.default.svc
-    namespace: cicd-demo
+    namespace: cicd-prod  # Changed from cicd-demo to cicd-prod
   
   # Auto-sync settings
   syncPolicy:
     automated:
-      prune: true  # Delete resources that are no longer in Git
-      selfHeal: true  # Auto-fix if someone manually changes things
+      prune: true
+      selfHeal: true
       allowEmpty: false
     syncOptions:
     - CreateNamespace=true
